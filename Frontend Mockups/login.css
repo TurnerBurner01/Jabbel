@@ -1,0 +1,296 @@
+/* =========================================
+    1. VARIABLES
+    ========================================= */
+:root {
+    --grad-start: #ff5e62;
+    --grad-end: #ff9966;
+    --main-gradient: linear-gradient(to bottom, var(--grad-start), var(--grad-end));
+
+    --bg-active: #edf0ef;   /* Light grey for the form background */
+    --bg-inactive: #d1d5db; /* Darker foggy grey for inactive tab */
+    --text-color: #333;
+    --border-color: #e5e7eb; /* Added missing variable */
+}
+
+/* =========================================
+    2. BASE STYLES
+    ========================================= */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: verdana-pro, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    background: var(--main-gradient);
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;  
+    justify-content: center;
+    align-items: center;
+}
+
+/* =========================================
+    3. Login Container
+    ========================================= */
+
+/* --- Main Card Container --- */
+.login-card {
+    background-color: var(--bg-active);
+    width: 900px;      /* Target fixed width */
+    max-width: 92%;
+    height: 500px;     /* Fixed height for a nice rectangular look */
+    border-radius: 12px;
+    overflow: hidden;  /* Keeps content inside the rounded corners */
+    display: flex;     /* Splits left and right */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* --- Left Side (Image) --- */
+.left-side {
+    flex: 1; /* Takes up 50% width */
+    background-color: #fff; /* White background behind image */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    
+    /* ADDED: Crucial for positioning the back button absolutely inside this box */
+    position: relative; 
+}
+
+.left-side img {
+    max-width: 80%;
+    height: 40%;
+    filter: drop-shadow(0 10px 10px rgba(255, 94, 98, 0.2));
+}
+
+/* --- NEW: Back Button Styles --- */
+.back-btn {
+    /* Positioning logic */
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    z-index: 10;
+
+    /* Visual styles (Same as Journal Dashboard) */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--grad-start);
+    background-color: transparent;
+    color: var(--grad-start);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.back-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    fill: none;
+}
+
+.back-btn:hover {
+    background: var(--main-gradient);
+    background-origin: border-box; /* Fixes border artifact */
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 4px 12px rgba(255, 94, 98, 0.3);
+    transform: translateY(-2px);
+}
+
+/* --- Right Side (Form) --- */
+.right-side {
+    flex: 1; /* Takes up 50% width */
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-active);
+}
+
+/* --- The Toggle Buttons (Top of Right Side) --- */
+.toggle-container {
+    display: flex;
+    width: 100%;
+    height: 60px;
+}
+
+.toggle-btn {
+    flex: 1; /* Both buttons take 50% width each */
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+/* The Active Button (Login) */
+.toggle-btn.active {
+    background-color: var(--bg-active); /* Same as form bg */
+    color: var(--grad-start); /* Text color matches theme */
+}
+
+/* The Inactive Button (Sign Up) */
+.toggle-btn.inactive {
+    background-color: var(--bg-inactive); /* Darker foggy grey */
+    color: #666;
+    box-shadow: inset 0 -2px 5px rgba(0,0,0,0.05); /* Inner shadow to look "depressed" */
+}
+
+.toggle-btn.inactive:hover {
+    background-color: #c4c8ce;
+}
+
+/* --- The Input Fields Area --- */
+.form-container {
+    padding: 30px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1; /* Fills remaining height */
+}
+
+.section-title {
+    font-size: 20px;
+    color: #666;
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+/* --- Social Login Buttons --- */
+.social-login {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.social-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+}
+
+.social-btn i {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.social-btn:hover {
+    background-color: #f8f9fa;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* Specific Colors for Icons */
+.fa-google { color: #DB4437; }
+.fa-facebook { color: #4267B2; }
+
+/* --- The "OR" Divider --- */
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 25px;
+    color: #999;
+    font-size: 13px;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #ddd;
+}
+
+.divider span {
+    padding: 0 10px;
+}
+
+/* --- Inputs --- */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.input-group input {
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 14px;
+    background: #fff;
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+    border-color: var(--grad-start);
+    outline: none;
+}
+
+/* --- Form Footer (Forgot Password + Login) --- */
+.form-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.forgot-pass {
+    font-size: 13px;
+    color: #666;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.forgot-pass:hover {
+    color: var(--grad-start);
+}
+
+.submit-btn {
+    background-color: transparent;
+    border: 2px solid #ff5e62; 
+    color: #ff5e62;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background: var(--main-gradient);
+    background-origin: border-box; 
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 4px 12px rgba(255, 94, 98, 0.3);
+    transform: translateY(-2px);
+}
