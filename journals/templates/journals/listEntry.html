@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'journals/css/listEntry.css' %}" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{% static 'journals/images/Jabbel_Icon.ico' %}"
+    />
+    <link rel="stylesheet" href="https://use.typekit.net/mwa1ymd.css" />
+    <title>Journals</title>
+  </head>
+  <body>
+    <header class="entryHeader">
+      <!-- Grouped Back Button and Title -->
+      <div class="header-left">
+        <button class="back-btn" aria-label="Go back">
+          <svg
+            viewBox="0 0 24 24"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+        </button>
+      </div>
+
+      <div class="profilePic-Box">
+        <!-- Using a placeholder image  -->
+        <img
+          src="https://ui-avatars.com/api/?name=User&background=random"
+          alt="Profile"
+        />
+      </div>
+    </header>
+
+    <main class="entryView">
+      <section class="recentJournal">
+        <!-- Title and Action Button -->
+        <div class="recentJournal-section left">
+          <p class="section-title">Joshua's Journals</p>
+          <button class="recentJournal-btn">Create Entry</button>
+        </div>
+
+        <!-- Grid of Entries -->
+        <div class="recentJournal-section bottom">
+          <div class="square">Entry 1</div>
+          <div class="square">Entry 2</div>
+          <div class="square">Entry 3</div>
+          <div class="square">Entry 4</div>
+          <div class="square">Entry 5</div>
+          <div class="square">+</div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
