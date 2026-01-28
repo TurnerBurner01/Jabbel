@@ -20,9 +20,9 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')), # Points to users/urls.py
-    path('', include('journals.urls')),    # Points to journeys/urls.py
+    path('', include('journals.urls')),    # Points to journals/urls.py
 ]
 
 # this file routes URL patterns to the appropriate apps:
 # - 'users/' routes to the users app'
-# - '' (the root URL) routes to the home page in the journeys app
+# - '' (the root URL) routes to the home page in the journals app
