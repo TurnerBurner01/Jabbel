@@ -111,6 +111,7 @@ body {
 
 .login-btn:hover {
     background: var(--main-gradient);
+    background-origin: border-box;
     border-color: transparent;
     color: white;
     box-shadow: 0 4px 12px rgba(255, 94, 98, 0.3);
