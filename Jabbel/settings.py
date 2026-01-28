@@ -56,7 +56,7 @@ ROOT_URLCONF = 'Jabbel.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'], # connect temapltes folder
+        'DIRS': [BASE_DIR / 'templates'], # connect templates folder
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
