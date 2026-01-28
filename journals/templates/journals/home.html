@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'journals/css/home.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'journals/images/Jabbel_Icon.ico' %}">
+    <link rel="stylesheet" href="https://use.typekit.net/mwa1ymd.css">
+    <title>Jabbel</title>
+</head>
+
+<body>
+
+<!-- HEADING BAR PARENT CONTAINER -->
+<nav class="navbar">
+
+    <!-- LEFT: LOGO CONTAINER -->
+    <div class="nav-section left">
+        <div class="logo-box">
+            <img src = "{% static 'journals/images/Jabbel_Icon.png' %}" alt="Jabbel Logo">
+        </div>
+    </div>
+
+    <!-- MIDDLE: NAV BUTTON CONTAINER -->
+    <div class="nav-section center">
+        <button class="nav-btn">Home</button>
+        <button class="nav-btn">Journals</button>
+        <button class="nav-btn">Contact</button>
+        <button class="nav-btn">About</button>
+    </div>
+
+    <!-- RIGHT: LOGIN BUTTON CONTAINER -->
+    <div class="nav-section right">
+        <button class="login-btn">Login</button>
+    </div>
+</nav>
+
+<!-- DISPLAY SLOGAN -->
+<main class="homeView">
+    <div class="hero-container">
+        <h1 class="hero-text">Have a</h1>
+        <img 
+            class="hero-img" 
+            alt="Jabbel" 
+            src="{% static 'journals/images/Jabbel_Title.png' %}" 
+        />
+    </div>
+</main>
+
+<!-- DISPLAY TOP 3 RECENT JOURNALS -->
+<section class="recentJournal">
+    <div class="recentJournal-section left">
+        
+        <p class="section-title">Top 3 Recent Journals</p>
+        <button class="recentJournal-btn">Create Entry</button>
+    </div>
+    <div class="recentJournal-section bottom">
+        <div class="square">Entry 1</div>
+        <div class="square">Entry 2</div>
+        <div class="square">Entry 3</div>
+    </div>
+</section>
+</main>
+
+</body>
+
+
+</html>
