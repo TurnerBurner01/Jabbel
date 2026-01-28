@@ -91,13 +91,6 @@ DATABASES = {
     }
 }
 
-print("--- ENVIRONMENT VARIABLE CHECK ---")
-print(f"DB_NAME: {os.getenv('DB_NAME')}")
-print(f"DB_USER: {os.getenv('DB_USER')}")
-print(f"DB_PASSWORD: {'****' if os.getenv('DB_PASSWORD') else 'NOT FOUND'}")
-print(f"DB_HOST: {os.getenv('DB_HOST')}")
-print("----------------------------------")
-
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
