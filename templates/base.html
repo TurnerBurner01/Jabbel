@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'journals/css/home.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
     <link
       rel="icon"
       type="image/x-icon"
@@ -12,6 +12,7 @@
     />
     <link rel="stylesheet" href="https://use.typekit.net/mwa1ymd.css" />
     <title>Jabbel</title>
+    {% block extra_css %}{% endblock %}
   </head>
 
   <!-- HEADING BAR PARENT CONTAINER -->
@@ -30,9 +31,9 @@
       <!-- MIDDLE: NAV BUTTON CONTAINER -->
       <div class="nav-section center">
         <a href="{% url 'home' %}" class="nav-btn">Home</a>
-        <a class="nav-btn">Journals</a>
-        <a class="nav-btn">Contact</a>
-        <a class="nav-btn">About</a>
+        <a href="#" class="nav-btn">Journals</a>
+        <a href="#" class="nav-btn">Contact</a>
+        <a href="#" class="nav-btn">About</a>
       </div>
 
       <!-- RIGHT: LOGIN BUTTON CONTAINER -->
@@ -40,7 +41,6 @@
         <button class="login-btn">Login</button>
       </div>
     </nav>
+    <main>{% block content %} {% endblock %}</main>
   </body>
-
-  <main>{% block content %} {% endblock %}</main>
 </html>

@@ -1,226 +1,69 @@
-/* =========================================
-   TABLE OF CONTENTS
-   1. Variables (:root)
-   2. Base Styles
-   3. Layout & Containers
-   4. Navigation Structure
-   5. Components (Buttons, Logos)
-   6. Hero Section
-   7. Recent Journal Section
-   ========================================= */
-
-/* =========================================
-   1. VARIABLES
-   ========================================= */
 :root {
     --grad-start: #ff5e62;
     --grad-end: #ff9966;
     --main-gradient: linear-gradient(to bottom, var(--grad-start), var(--grad-end));
+    --text-dark: #1f2937;
 }
 
 /* =========================================
-   2. BASE STYLES
+   1. HOME-SPECIFIC LAYOUT
    ========================================= */
-body {
-    margin: 0;
-    padding: 0;
-    font-family: verdana-pro, sans-serif;
-    font-style: normal;
-    font-weight: 300;
-    background-color: #f3f4f6;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-/* =========================================
-   3. LAYOUT & CONTAINERS
-   ========================================= */
-/* Main wrapper for the home view */
 .homeView {
     min-height: calc(100vh - 80px);
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    /* Fallback and Main Gradient */
     background: var(--grad-end);
     background: var(--main-gradient);
 }
 
 /* =========================================
-   4. NAVIGATION STRUCTURE
-   ========================================= */
-.navbar {
-    height: 80px;
-    padding: 0 32px;
-    background-color: white;
-    border-bottom: 1px solid #d1d5db;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.nav-section {
-    display: flex;
-    flex: 1;
-    align-items: center;
-}
-
-/* Section Alignment Modifiers */
-.nav-section.left {
-    justify-content: flex-start;
-}
-
-.nav-section.center {
-    justify-content: center;
-    gap: 50px; /* Space between the middle buttons */
-}
-
-.nav-section.right {
-    justify-content: flex-end;
-}
-
-/* =========================================
-   5. COMPONENTS
-   ========================================= */
-
-/* --- Logo Component --- */
-.logo-box {
-    height: 35px;
-    width: 35px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.logo-box img {
-    max-width: 100%;
-    height: auto;
-}
-
-/* --- Navigation Buttons (Pill Shape) --- */
-.nav-btn {
-    background: transparent;
-    border: none;
-    padding: 8px 0; 
-    
-    color: #4b5563; /* Neutral gray */
-    font-size: 18px;
-    font-weight: 600; /* Slightly bolder */
-    cursor: pointer;
-    
-    position: relative; /* Needed for the underline positioning */
-    transition: all 0.3s ease;
-}
-
-/* Hover Effect: Color Change + Lift */
-.nav-btn:hover {
-    color: var(--grad-start);
-    transform: translateY(-2px);
-}
-
-/* Hover Effect: Animated Underline */
-.nav-btn::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0%; /* Starts hidden */
-    height: 2px;
-    background: var(--main-gradient); /* Underline matches theme */
-    transition: width 0.3s ease;
-    border-radius: 2px;
-}
-
-.nav-btn:hover::after {
-    width: 100%; /* Expands on hover */
-}
-
-/* --- Login Button (Solid) --- */
-.login-btn {
-    background-color: transparent;
-    border: 2px solid #ff5e62; 
-    color: #ff5e62;
-    padding: 10px 20px;
-    border-radius: 50px;
-    font-size: 16px;
-    font-weight: 600;
-    transition: all 0.2s ease;
-}
-
-.login-btn:hover {
-    cursor: pointer;
-    background: var(--main-gradient);
-    background-origin: border-box; 
-    border-color: transparent;
-    color: white;
-    box-shadow: 0 4px 12px rgba(255, 94, 98, 0.3);
-    transform: translateY(-2px);
-}
-
-/* =========================================
-   6. HERO SECTION
+   2. HERO SECTION
    ========================================= */
 .hero-container {
     display: flex;
     align-items: center;
-    gap: 20px; /* Space between text and Image */
+    gap: 20px;
 }
 
 .hero-text {
-    font-family: "verdana-pro", sans-serif;
-    font-weight: 300;
-    font-style: normal;
     font-size: 64px;
     margin: 0;
     letter-spacing: -1px;
 }
 
-.hero-img {
-    height: 80px;
-}
+.hero-img { height: 80px; }
 
 /* =========================================
-   7. TOP 3 RECENT JOURNALS SECTION
+   3. TOP 3 RECENT JOURNALS SECTION
    ========================================= */
-
 .recentJournal {
-    /* Container Styles (Kept from original to ensure fit) */
     background-color: white;
     padding: 60px 32px;
     width: 100%;
     box-sizing: border-box;
-
-    /* New Layout Styles */
     display: flex;
     flex-direction: column;
     gap: 32px;
 }
 
-/* Top Bar (Title + Button) */
 .recentJournal-section.left {
     display: flex;
     align-items: center;
     width: 100%;
-    border-bottom: 1px solid #e5e7eb; /* Subtle separator */
+    border-bottom: 1px solid #e5e7eb;
     padding-bottom: 20px;
-    margin: 0; /* Reset margins */
 }
 
 .section-title {
-    font-family: verdana-pro, sans-serif;
     font-size: 28px;
     font-weight: 700;
-    color: var(--text-dark);
-    margin: 0;
+    color: #1f2937; /* Match var(--text-dark) */
 }
 
 .recentJournal-btn {
-    /* Pushes button to the far right */
     margin-left: auto; 
-    
     background-color: white;
     border: 2px solid var(--grad-start);
     color: var(--grad-start);
@@ -231,41 +74,32 @@ body {
     cursor: pointer;
     transition: all 0.2s ease;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
 }
 
 .recentJournal-btn:hover {
     background: var(--main-gradient);
-    background-origin: border-box; 
     border-color: transparent;
     color: white;
     box-shadow: 0 4px 12px rgba(255, 94, 98, 0.3);
     transform: translateY(-2px);
 }
 
-/* Grid for Journal Squares */
 .recentJournal-section.bottom {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
-    width: 100%;
 }
 
-/* Individual Journal Card Styling */
 .square {
-    aspect-ratio: 1 / 1; /* Forces a perfect square */
+    aspect-ratio: 1 / 1;
     background-color: white;
     border-radius: 16px;
     border: 1px solid #e5e7eb;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    
-    /* Centering placeholder text */
     display: flex;
     align-items: center;
     justify-content: center;
     color: #d1d5db;
-    font-weight: 500;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .square:hover {
