@@ -26,6 +26,10 @@ body {
 /* =========================================
    3. NAVIGATION STRUCTURE & COMPONENTS
    ========================================= */
+.navbar a {
+    text-decoration: none;
+}
+
 .navbar {
     height: 80px;
     padding: 0 32px;
@@ -92,6 +96,8 @@ body {
 .nav-btn:hover::after { width: 100%; }
 
 .login-btn {
+    display: inline-block;
+    text-decoration: none !important;
     background-color: transparent;
     border: 2px solid #ff5e62; 
     color: #ff5e62;
