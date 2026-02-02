@@ -94,6 +94,7 @@
 
       .back-btn:hover {
         background: var(--main-gradient);
+        background-origin: border-box;
         border-color: transparent;
         color: white;
         box-shadow: 0 4px 12px rgba(255, 94, 98, 0.3);
@@ -185,6 +186,7 @@
         display: flex;
         flex-direction: column;
         margin-bottom: 12px;
+        position: relative;
       }
 
       .input-group label {
@@ -206,6 +208,32 @@
       .input-group input:focus {
         border-color: var(--grad-start);
         outline: none;
+      }
+
+      .input-error {
+        position: absolute;
+        left: calc(65% + 8px);
+        top: 30%;
+        transform: translateY(-50%);
+        background: #fff5f5;
+        color: #d32f2f;
+        border: 1px solid #ff5e62;
+        padding: 6px 10px;
+        border-radius: 6px;
+        font-size: 12px;
+        white-space: nowrap;
+        box-shadow: 0 6px 22px rgba(255, 94, 98, 0.12);
+        z-index: 10;
+      }
+
+      /* Mobile fallback: stack error under the input to avoid overflow */
+      @media (max-width: 480px) {
+        .input-error {
+          position: static;
+          transform: none;
+          margin-top: 8px;
+          left: auto;
+        }
       }
 
       .form-footer {
@@ -244,6 +272,7 @@
 
       .submit-btn:hover {
         background: var(--main-gradient);
+        background-origin: border-box;
         border-color: transparent;
         color: white;
         box-shadow: 0 4px 12px rgba(255, 94, 98, 0.3);
