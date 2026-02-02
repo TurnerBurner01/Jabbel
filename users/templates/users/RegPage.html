@@ -72,7 +72,13 @@
                   name="email"
                   placeholder="email@gmail.com"
                   required
+                  value="{{ email|default:'' }}"
                 />
+                {% if error_email %}
+                <div class="input-error" role="alert" aria-live="assertive">
+                  {{ error_email }}
+                </div>
+                {% endif %}
               </div>
 
               <div class="input-group">
