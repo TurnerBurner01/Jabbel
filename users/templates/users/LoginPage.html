@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'users/css/login.css' %}" />
+    <link rel="stylesheet" href="{% static 'users/css/RegPage.css' %}" />
     <link
       rel="icon"
       type="image/x-icon"
@@ -14,19 +14,14 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
     />
-    <title>Login Page</title>
+    <title>Login</title>
   </head>
   <body>
     <main>
       <div class="login-card">
-        <!-- Left side of the login page -->
+        <!-- Left side -->
         <div class="left-side">
-          <!-- BACK BUTTON HERE -->
-          <a
-            href="{% url 'journals:home' %}"
-            class="back-btn"
-            aria-label="Go back"
-          >
+          <a href="/" class="back-btn" aria-label="Go back">
             <svg
               viewBox="0 0 24 24"
               stroke-linecap="round"
@@ -36,21 +31,14 @@
               <polyline points="12 19 5 12 12 5"></polyline>
             </svg>
           </a>
-
-          <img src="{% static 'images/Jabbel_Icon.png' %}" alt="Jabbel Logo" />
+          <img src="{% static 'images/Jabbel_icon.png' %}" alt="Jabbel Logo" />
         </div>
 
         <div class="right-side">
-          <!-- Toggle Container -->
-          <div class="toggle-container">
-            <button class="toggle-btn active">Login</button>
-            <button class="toggle-btn inactive">Sign Up</button>
-          </div>
-
           <!-- Form Container -->
           <div class="form-container">
-            <!-- 1. Sign In With Section -->
-            <div class="section-title">Login with</div>
+            <h1 class="section-title">Welcome Back</h1>
+
             <div class="social-login">
               <button class="social-btn">
                 <i class="fab fa-google"></i> Google
@@ -60,27 +48,40 @@
               </button>
             </div>
 
-            <!-- 2. OR Divider -->
             <div class="divider">
               <span>OR</span>
             </div>
 
-            <!-- 3. Standard Inputs -->
-            <div class="input-group">
-              <label>Email Address</label>
-              <input type="email" placeholder="enter@email.com" />
-            </div>
+            <!-- Standard Inputs -->
+            <form action="#" method="POST">
+              <div class="input-group">
+                <label>Email Address</label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="enter@email.com"
+                  required
+                />
+              </div>
 
-            <div class="input-group">
-              <label>Password</label>
-              <input type="password" placeholder="••••••••" />
-            </div>
+              <div class="input-group">
+                <label>Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="••••••••"
+                  required
+                />
+              </div>
 
-            <!-- 4. Footer: Forgot Password & Login Button -->
-            <div class="form-footer">
-              <a href="#" class="forgot-pass">Forgot Password?</a>
-              <button class="submit-btn">Login</button>
-            </div>
+              <!-- Footer: Link to Login & Sign Up Button -->
+              <div class="form-footer">
+                <a href="{% url 'users:register' %}" class="switch-auth"
+                  >Don't have an account?</a
+                >
+                <button type="submit" class="submit-btn">Login</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
