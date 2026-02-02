@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'users/css/RegPage.css' %}" />
+    <link rel="stylesheet" href="{% static 'users/css/FormPage.css' %}" />
     <link
       rel="icon"
       type="image/x-icon"
@@ -18,9 +18,9 @@
   </head>
   <body>
     <main>
-      <div class="login-card">
+      <div class="form-card">
         <!-- Left side -->
-        <div class="left-side">
+        <div class="brand-panel">
           <a href="/" class="back-btn" aria-label="Go back">
             <svg
               viewBox="0 0 24 24"
@@ -34,7 +34,7 @@
           <img src="{% static 'images/Jabbel_icon.png' %}" alt="Jabbel Logo" />
         </div>
 
-        <div class="right-side">
+        <div class="form-panel">
           <!-- Form Container -->
           <div class="form-container">
             <h1 class="section-title">Create Account</h1>
@@ -53,13 +53,14 @@
             </div>
 
             <!-- Standard Inputs -->
-            <form action="#" method="POST">
+            <form action="{% url 'users:register' %}" method="POST">
+              {% csrf_token %}
               <div class="input-group">
                 <label>Username</label>
                 <input
                   type="text"
                   name="username"
-                  placeholder="johndoe"
+                  placeholder="Username"
                   required
                 />
               </div>
@@ -69,7 +70,7 @@
                 <input
                   type="email"
                   name="email"
-                  placeholder="enter@email.com"
+                  placeholder="email@gmail.com"
                   required
                 />
               </div>
