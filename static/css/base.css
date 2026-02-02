@@ -95,7 +95,7 @@ body {
 
 .nav-btn:hover::after { width: 100%; }
 
-.login-btn {
+.signUp-btn {
     display: inline-block;
     text-decoration: none !important;
     background-color: transparent;
@@ -109,7 +109,7 @@ body {
     cursor: pointer;
 }
 
-.login-btn:hover {
+.signUp-btn:hover {
     background: var(--main-gradient);
     background-origin: border-box;
     border-color: transparent;
