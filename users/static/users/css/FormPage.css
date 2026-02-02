@@ -1,0 +1,271 @@
+ /* =========================================
+         1. VARIABLES
+         ========================================= */
+      :root {
+        --grad-start: #ff5e62;
+        --grad-end: #ff9966;
+        --main-gradient: linear-gradient(to bottom, var(--grad-start), var(--grad-end));
+
+        --bg-active: #edf0ef;   /* Light grey for the form background */
+        --text-color: #333;
+        --border-color: #e5e7eb;
+      }
+
+      /* =========================================
+         2. BASE STYLES
+         ========================================= */
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: verdana-pro, sans-serif;
+        font-style: normal;
+        font-weight: 300;
+        background: var(--main-gradient);
+
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;  
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* =========================================
+         3. UI Components
+         ========================================= */
+
+      .form-card {
+        background-color: var(--bg-active);
+        width: 900px;
+        max-width: 92%;
+        height: 480px; 
+        border-radius: 12px;
+        overflow: hidden;
+        display: flex;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      }
+
+      .brand-panel {
+        flex: 1;
+        background-color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        position: relative; 
+      }
+
+      .brand-panel img {
+        max-width: 80%;
+        height: auto;
+        max-height: 40%;
+        filter: drop-shadow(0 10px 10px rgba(255, 94, 98, 0.2));
+      }
+
+      .back-btn {
+        position: absolute;
+        top: 24px;
+        left: 24px;
+        z-index: 10;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid var(--grad-start);
+        background-color: transparent;
+        color: var(--grad-start);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-decoration: none;
+      }
+
+      .back-btn svg {
+        width: 20px;
+        height: 20px;
+        stroke: currentColor;
+        stroke-width: 2.5;
+        fill: none;
+      }
+
+      .back-btn:hover {
+        background: var(--main-gradient);
+        border-color: transparent;
+        color: white;
+        box-shadow: 0 4px 12px rgba(255, 94, 98, 0.3);
+        transform: translateY(-2px);
+      }
+
+      .form-panel {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        background-color: var(--bg-active);
+        position: relative;
+      }
+
+      .form-container {
+        padding: 30px 60px; 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex: 1;
+      }
+
+      .section-title {
+        font-size: 22px;
+        color: var(--grad-start);
+        text-align: center;
+        margin-bottom: 15px;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+      }
+
+      .social-login {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .social-btn {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 42px;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        background: white;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-size: 13px;
+        font-weight: 500;
+        color: #555;
+      }
+
+      .social-btn i {
+        margin-right: 10px;
+        font-size: 16px;
+      }
+
+      .social-btn:hover {
+        background-color: #f8f9fa;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      }
+
+      .fa-google { color: #DB4437; }
+      .fa-facebook { color: #4267B2; }
+
+      .divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 15px;
+        color: #999;
+        font-size: 12px;
+      }
+
+      .divider::before,
+      .divider::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .divider span {
+        padding: 0 10px;
+      }
+
+      .input-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 12px;
+      }
+
+      .input-group label {
+        font-size: 13px;
+        color: #666;
+        margin-bottom: 4px;
+        font-weight: 500;
+      }
+
+      .input-group input {
+        padding: 10px;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        font-size: 14px;
+        background: #fff;
+        transition: border-color 0.3s;
+      }
+
+      .input-group input:focus {
+        border-color: var(--grad-start);
+        outline: none;
+      }
+
+      .form-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 15px;
+        gap: 20px; /* Added gap between link and button */
+      }
+
+      .switch-auth {
+        font-size: 13px;
+        color: #666;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+        white-space: nowrap; /* Prevents text wrapping if space gets tight */
+      }
+
+      .switch-auth:hover {
+        color: var(--grad-start);
+      }
+
+      .submit-btn {
+        background-color: transparent;
+        border: 2px solid #ff5e62; 
+        color: #ff5e62;
+        padding: 8px 22px;
+        border-radius: 50px;
+        font-size: 15px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        flex-shrink: 0; /* Prevents button from squishing */
+      }
+
+      .submit-btn:hover {
+        background: var(--main-gradient);
+        border-color: transparent;
+        color: white;
+        box-shadow: 0 4px 12px rgba(255, 94, 98, 0.3);
+        transform: translateY(-2px);
+      }
+
+      /* Responsive adjustment */
+      @media (max-width: 768px) {
+        .login-card {
+          flex-direction: column;
+          height: auto;
+          width: 95%;
+          margin: 20px 0;
+        }
+        .brand-panel {
+          padding: 30px 20px;
+        }
+        .form-container {
+          padding: 25px;
+        }
+        .form-footer {
+            flex-direction: column;
+            gap: 15px;
+        }
+      }
