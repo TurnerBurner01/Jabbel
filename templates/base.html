@@ -39,6 +39,8 @@
       <!-- RIGHT: LOGIN BUTTON CONTAINER -->
       <div class="nav-section right">
         <a href="{% url 'users:register' %}" class="signUp-btn">Sign Up</a>
+        <p class="divider">|</p>
+        <a href="{% url 'users:register' %}" class="signUp-btn">Login</a>
       </div>
     </nav>
     <main>{% block content %} {% endblock %}</main>
