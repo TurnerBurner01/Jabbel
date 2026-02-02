@@ -14,16 +14,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include
-from django.conf import settings 
-from django.conf.urls.static import static
 
 '''
 this file routes URL patterns to the appropriate apps:
  -- 'users/' routes to the users app'
  -- '' (the root URL) routes to the home page in the journals app
 '''
+
+from django.contrib import admin
+from django.urls import path, include
+from django.conf import settings 
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
