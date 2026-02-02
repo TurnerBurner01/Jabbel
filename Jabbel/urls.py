@@ -19,6 +19,12 @@ from django.urls import path, include
 from django.conf import settings 
 from django.conf.urls.static import static
 
+'''
+this file routes URL patterns to the appropriate apps:
+ -- 'users/' routes to the users app'
+ -- '' (the root URL) routes to the home page in the journals app
+'''
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')), # Points to users/urls.py
@@ -29,6 +35,4 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-# this file routes URL patterns to the appropriate apps:
-# - 'users/' routes to the users app'
-# - '' (the root URL) routes to the home page in the journals app
+
