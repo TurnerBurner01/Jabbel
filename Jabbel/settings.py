@@ -110,6 +110,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Telling Django to use custom user model for authentication
+AUTH_USER_MODEL = "users.Users"
 
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
