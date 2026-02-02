@@ -74,6 +74,10 @@ TEMPLATES = [
     },
 ]
 
+# Media files (Profile Pictures)
+MEDIA_URL = '/media/' 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # connect media folder to base dir
+
 WSGI_APPLICATION = 'Jabbel.wsgi.application'
 
 

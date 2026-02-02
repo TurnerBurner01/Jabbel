@@ -16,12 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings 
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')), # Points to users/urls.py
-    path('', include('journals.urls')),    # Points to journals/urls.py
+    path('', include('journals.urls')),    # Points to journals/urls.py (the home page by default)
 ]
+
+# Serve media files during development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # this file routes URL patterns to the appropriate apps:
 # - 'users/' routes to the users app'
