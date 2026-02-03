@@ -28,33 +28,32 @@ def home(request):
 @login_required
 def createJournal(request):
     if request.method == 'POST':
-        title = request.POST.get('title', 'Untitled Entry')  # Default title if none provided
+        title = request.POST.get('title', 'Untitled Entry')                 # Default title if none provided
 
         # Save the new journal entry to the database
         journal = request.user.journals.create(title=title, content={})
-        return redirect('journals:openJournal', journal_id=journal.id)  # Redirect to the newly created journal
+        return redirect('journals:openJournal', journal_id=journal.id)      # Redirect to the newly created journal
     else:
         return render(request, 'journals/createJournal.html')
     
 
 
-# Edits an existing/newly created journal entry (not yet implemented)
+# Edits an existing/newly created journal entry 
 @login_required
 def openJournal(request, journal_id):
 
     # Handle GET request to open and view the journal
     if request.method == 'GET':
-        journal = get_object_or_404(request.user.journals, id=journal_id) # Ensure the journal belongs to the logged-in user
-        context = { 
-            'journal': journal
-        }
+        journal = get_object_or_404(request.user.journals, id=journal_id)   # Ensure the journal belongs to the logged-in user
+        context = {'journal': journal}                                      # Pass the journal to the template                      
         return render(request, 'journals/Journal.html', context)
     
     # Handle POST request to save updates to the journal
+    # Note: Need to create JS function to send updated content as JSON via fetch API
     elif request.method == 'POST':
-        data = json.loads(request.body)
-        journal.content = data.get('content')
-        journal.save()
+        data = json.loads(request.body)                                     # Parse JSON data from request body
+        journal.content = data.get('content')                               # Update journal content
+        journal.save()                                                      # Save changes to the database  
         return JsonResponse({'status': 'success'})
 
     # User just opened the page
@@ -77,7 +76,7 @@ def deleteJournal(request, journal_id):
 def listJournals(request):
 
     if request.method == 'GET':
-        journals = request.user.journals.all()  # Get all journals for the current user
+        journals = request.user.journals.all().order_by('-date_updated')  # Get all journals for the current user, ordered by date_updated descending
         context = {
             'journals': journals
         }
