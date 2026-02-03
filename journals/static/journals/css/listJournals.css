@@ -31,11 +31,6 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
-    /* Keeps header stuck to top while scrolling */
-    /* position: sticky;
-    top: 0;
-    z-index: 100; */
 }
 
 /* Group for Left side of header*/
