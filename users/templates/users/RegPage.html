@@ -1,0 +1,106 @@
+{% load static %}<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'users/css/FormPage.css' %}" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{% static 'images/Jabbel_Icon.ico' %}"
+    />
+    <link rel="stylesheet" href="https://use.typekit.net/mwa1ymd.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <title>Create Account</title>
+  </head>
+  <body>
+    <main>
+      <div class="form-card">
+        <div class="brand-panel">
+          <a href="/" class="back-btn" aria-label="Go back">
+            <svg
+              viewBox="0 0 24 24"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+          </a>
+          <img src="{% static 'images/Jabbel_icon.png' %}" alt="Jabbel Logo" />
+        </div>
+
+        <div class="form-panel">
+          <!-- Form Container -->
+          <div class="form-container">
+            <h1 class="section-title">Create Account</h1>
+
+            <div class="social-login">
+              <button class="social-btn">
+                <i class="fab fa-google"></i> Google
+              </button>
+              <button class="social-btn">
+                <i class="fab fa-facebook"></i> Facebook
+              </button>
+            </div>
+
+            <div class="divider">
+              <span>OR</span>
+            </div>
+
+            <!-- Standard Inputs -->
+            <form action="{% url 'users:register' %}" method="POST">
+              {% csrf_token %}
+              <div class="input-group">
+                <label>Username</label>
+                <input
+                  type="text"
+                  name="username"
+                  placeholder="Username"
+                  required
+                />
+              </div>
+
+              <div class="input-group">
+                <label>Email Address</label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="email@gmail.com"
+                  required
+                  value="{{ email|default:'' }}"
+                />
+                {% if error_email %}
+                <div class="input-error" role="alert" aria-live="assertive">
+                  {{ error_email }}
+                </div>
+                {% endif %}
+              </div>
+
+              <div class="input-group">
+                <label>Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="••••••••"
+                  required
+                />
+              </div>
+
+              <!-- Footer: Link to Login & Sign Up Button -->
+              <div class="form-footer">
+                <a href="{% url 'users:login' %}" class="switch-auth"
+                  >Already have an account?</a
+                >
+                <button type="submit" class="submit-btn">Sign Up</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
