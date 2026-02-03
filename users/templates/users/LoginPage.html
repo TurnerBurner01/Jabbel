@@ -73,6 +73,11 @@
                   placeholder="••••••••"
                   required
                 />
+                {% if error %}
+                <div class="input-error" role="alert" aria-live="assertive">
+                  {{ error }}
+                </div>
+                {% endif %}
               </div>
 
               <!-- Footer: Link to Login & Sign Up Button -->
