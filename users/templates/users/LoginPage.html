@@ -53,7 +53,8 @@
             </div>
 
             <!-- Standard Inputs -->
-            <form action="#" method="POST">
+            <form action="{% url 'users:login' %}" method="POST">
+              {% csrf_token %}
               <div class="input-group">
                 <label>Email Address</label>
                 <input
