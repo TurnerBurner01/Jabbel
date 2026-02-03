@@ -12,6 +12,8 @@ Data Pipeline for Journal entries:
 2. Passes that new journal.id to openJournal() to open it for editing
 '''
 
+import json
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Journal
@@ -47,6 +49,17 @@ def openJournal(request, journal_id):
             'journal': journal
         }
         return render(request, 'journals/Journal.html', context)
+    
+    # Handle POST request to save updates to the journal
+    elif request.method == 'POST':
+        data = json.loads(request.body)
+        journal.content = data.get('content')
+        journal.save()
+        return JsonResponse({'status': 'success'})
+
+    # User just opened the page
+    else:
+        return render(request, 'journals/Journal.html', {'journal': journal})
     
 
 
