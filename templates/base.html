@@ -37,7 +37,8 @@
 
         {% if user.is_authenticated %}
         <p class="nav-btn">Welcome, {{ user.username }}!</p>
-        <a href="{% url 'users:logout' %}" class="nav-btn">Logout</a>
+        <p class="divider">|</p>
+        <a href="{% url 'users:logout' %}" class="signUp-btn">Logout</a>
         
         {% else %}
           <a href="{% url 'users:register' %}" class="signUp-btn">Sign Up</a>
