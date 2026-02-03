@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
+from django.contrib import auth
 
 # Get the User model
 User = get_user_model()
@@ -35,4 +36,20 @@ def register(request):
         return render(request, 'users/RegPage.html')
 
 def login(request):
-    return render(request, 'users/LoginPage.html')
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        # authenticate() checks the hash and the email
+        user = auth.authenticate(request, email=email, password=password)
+
+        if user is not None:
+            auth.login(request, user)  # Assigns this session with the user logged in 
+            return redirect('/')
+        else:
+            return render(request, 'users/LoginPage.html', {
+                'error': 'Invalid Details.',
+                'email': email,
+            })
+    else:    
+        return render(request, 'users/LoginPage.html')
