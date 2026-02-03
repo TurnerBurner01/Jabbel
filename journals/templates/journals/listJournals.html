@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'journals/css/listEntry.css' %}" />
+    <link
+      rel="stylesheet"
+      href="{% static 'journals/css/listJournals.css' %}"
+    />
     <link
       rel="icon"
       type="image/x-icon"
@@ -16,16 +19,21 @@
     <header class="entryHeader">
       <!-- Grouped Back Button and Title -->
       <div class="header-left">
-        <button class="back-btn" aria-label="Go back">
+        <a
+          href="{% url 'journals:home' %}"
+          class="back-btn"
+          aria-label="Go back"
+        >
           <svg
             viewBox="0 0 24 24"
             stroke-linecap="round"
             stroke-linejoin="round"
+            stroke="currentColor"
           >
             <line x1="19" y1="12" x2="5" y2="12"></line>
             <polyline points="12 19 5 12 12 5"></polyline>
           </svg>
-        </button>
+        </a>
       </div>
 
       <div class="profilePic-Box">
@@ -41,19 +49,25 @@
       <section class="recentJournal">
         <!-- Title and Action Button -->
         <div class="recentJournal-section left">
-          <p class="section-title">Joshua's Journals</p>
-          <button class="recentJournal-btn">Create Entry</button>
+          <p class="section-title">{{ user.username }}'s Journals</p>
+          <button class="recentJournal-btn">Create Journal</button>
         </div>
 
         <!-- Grid of Entries -->
-        <div class="recentJournal-section bottom">
-          <div class="square">Entry 1</div>
-          <div class="square">Entry 2</div>
-          <div class="square">Entry 3</div>
-          <div class="square">Entry 4</div>
-          <div class="square">Entry 5</div>
-          <div class="square">+</div>
+        <div class="recentJournal-section bottom"></div>
+        {% if journals|length == 0 %}
+        <div class="no-journals-message">
+          <p>
+            No journals found. Click "Create Journal" to add your first journal!
+          </p>
         </div>
+        {% else %} {% for journal in journals %}
+        <div class="square">
+          <a href="{% url 'journals:openJournal' journal.id %}"
+            >{{ journal.title }}</a
+          >
+        </div>
+        {% endfor %} {% endif %}
       </section>
     </main>
   </body>
