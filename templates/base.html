@@ -30,6 +30,9 @@
         <a href="{% url 'journals:home' %}" class="nav-btn">Home</a>
         <a href="#" class="nav-btn">Contact</a>
         <a href="#" class="nav-btn">About</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'journals:listJournals' %}" class="nav-btn">Journals</a>
+        {% endif %}
       </div>
 
       <!-- RIGHT: USER PROFILE CONTAINER -->
