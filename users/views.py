@@ -53,3 +53,8 @@ def login(request):
             })
     else:    
         return render(request, 'users/LoginPage.html')
+    
+def logout(request):
+    auth.logout(request)    # Simple just logouts the user
+    print('User logged out.')
+    return redirect('/')    

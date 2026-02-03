@@ -7,4 +7,5 @@ urlpatterns = [
     # This is linked to a button in the base.html template that has a tag "action = {% url 'users:register or login' %}"
     path('register/', views.register, name='register'),
     path('login/', views.login, name='login'),
+    path('logout/', views.logout, name='logout'),
 ]
