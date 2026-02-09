@@ -42,15 +42,10 @@ def createJournal(request):
 @login_required
 def openJournal(request, journal_id):
     journal = get_object_or_404(request.user.journals, id=journal_id)   # Ensure the journal belongs to the logged-in user
-
-    # Handle GET request to open and view the journal
-    if request.method == 'GET':
-        context = {'journal': journal}                                      # Pass the journal to the template                      
-        return render(request, 'journals/Journal.html', context)
     
     # Handle POST request to save updates to the journal
     # Note: Need to create JS function to send updated content as JSON via fetch API
-    elif request.method == 'POST':
+    if request.method == 'POST':
         data = json.loads(request.body)                                     # Parse JSON data from request body
         journal.content = data.get('content')                               # Update journal content
         journal.save()                                                      # Save changes to the database  
