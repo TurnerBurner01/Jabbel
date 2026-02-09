@@ -41,10 +41,10 @@ def createJournal(request):
 # Edits an existing/newly created journal entry 
 @login_required
 def openJournal(request, journal_id):
+    journal = get_object_or_404(request.user.journals, id=journal_id)   # Ensure the journal belongs to the logged-in user
 
     # Handle GET request to open and view the journal
     if request.method == 'GET':
-        journal = get_object_or_404(request.user.journals, id=journal_id)   # Ensure the journal belongs to the logged-in user
         context = {'journal': journal}                                      # Pass the journal to the template                      
         return render(request, 'journals/Journal.html', context)
     
