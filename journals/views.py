@@ -41,7 +41,8 @@ def createJournal(request):
 # Edits an existing/newly created journal entry 
 @login_required
 def openJournal(request, journal_id):
-    journal = get_object_or_404(request.user.journals, id=journal_id)   # Ensure the journal belongs to the logged-in user
+    # Ensure the journal belongs to the logged-in user
+    journal = get_object_or_404(request.user.journals, id=journal_id)
     
     # Handle POST request to save updates to the journal
     # Note: Need to create JS function to send updated content as JSON via fetch API
@@ -51,7 +52,7 @@ def openJournal(request, journal_id):
         journal.save()                                                      # Save changes to the database  
         return JsonResponse({'status': 'success'})
 
-    # User just opened the page
+    # The GET request will load the journal content into the editor for viewing/editing
     else:
         return render(request, 'journals/Journal.html', {'journal': journal})
     
