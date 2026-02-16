@@ -34,7 +34,8 @@ def createJournal(request):
         journal = request.user.journals.create(title=title, content={})
         return redirect('journals:openJournal', journal_id=journal.id)      # Redirect to the newly created journal
     else:
-        return render(request, 'journals/createJournal.html')
+        return render(request, 'journals/journal.html')
+        #return render(request, 'journals/createJournal.html')
     
 
 
@@ -54,7 +55,7 @@ def openJournal(request, journal_id):
 
     # The GET request will load the journal content into the editor for viewing/editing
     else:
-        return render(request, 'journals/Journal.html', {'journal': journal})
+        return render(request, 'journals/journal.html', {'journal': journal})
     
 
 
