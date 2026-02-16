@@ -20,7 +20,14 @@ from .models import Journal
 
 # Home page view
 def home(request):
-    return render(request, 'journals/home.html')
+    context = {}
+    # This is for getting the top 3 journals on the home page
+    if request.user.is_authenticated:
+        # Get top 3 most recent journals
+        journals = request.user.journals.all().order_by('-date_updated')[:3]
+        context['journals'] = journals
+        
+    return render(request, 'journals/home.html', context)
 
 
 
