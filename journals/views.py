@@ -55,6 +55,7 @@ def openJournal(request, journal_id):
 
     # The GET request will load the journal content into the editor for viewing/editing
     else:
+        # TODO: Change render to createForm.html
         return render(request, 'journals/journal.html', {'journal': journal})
     
 
