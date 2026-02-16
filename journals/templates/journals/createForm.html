@@ -1,6 +1,10 @@
 <body>
   <div id="journalModal" class="modal">
-    <form method="POST" action="{% url 'journals:createJournal' %}">
+    <form
+      method="POST"
+      action="{% url 'journals:createJournal' %}"
+      class="modal-content"
+    >
       {% csrf_token %}
       <input type="text" name="title" placeholder="Enter Title" required />
       <button type="submit">Create</button>
