@@ -8,6 +8,7 @@
       rel="stylesheet"
       href="{% static 'journals/css/listJournals.css' %}"
     />
+    <link rel="stylesheet" href="{% static 'journals/css/createForm.css' %}" />
     <link
       rel="icon"
       type="image/x-icon"
@@ -16,6 +17,7 @@
     <link rel="stylesheet" href="https://use.typekit.net/mwa1ymd.css" />
     <title>Journals</title>
   </head>
+  <script src="{% static 'journals/js/createForm.js' %}"></script>
 
   <body>
     <header class="entryHeader">
@@ -52,10 +54,12 @@
         <!-- Title and Action Button -->
         <div class="recentJournal-section left">
           <p class="section-title">{{ user.username }}'s Journals</p>
-          <a href="{% url 'journals:createJournal' %}" class="recentJournal-btn"
-            >Create Journal</a
-          >
+          <button id="openModalBtn" class="recentJournal-btn">
+            Create Journal
+          </button>
         </div>
+
+        {% include 'journals/createForm.html' %}
 
         <!-- Grid of Entries -->
         <div class="recentJournal-section bottom"></div>
