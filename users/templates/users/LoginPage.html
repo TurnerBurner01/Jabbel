@@ -53,7 +53,8 @@
             </div>
 
             <!-- Standard Inputs -->
-            <form action="#" method="POST">
+            <form action="{% url 'users:login' %}" method="POST">
+              {% csrf_token %}
               <div class="input-group">
                 <label>Email Address</label>
                 <input
@@ -72,6 +73,11 @@
                   placeholder="••••••••"
                   required
                 />
+                {% if error %}
+                <div class="input-error" role="alert" aria-live="assertive">
+                  {{ error }}
+                </div>
+                {% endif %}
               </div>
 
               <!-- Footer: Link to Login & Sign Up Button -->

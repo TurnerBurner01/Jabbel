@@ -8,13 +8,15 @@
 }
 
 * {
-    box-sizing: border-box; /* Crucial for consistent sizing */
+    box-sizing: border-box;
+    /* Crucial for consistent sizing */
 }
 
 body {
     margin: 0;
     padding: 0;
-    font-family: "verdana-pro", sans-serif; /* Ensure font matches your import */
+    font-family: "verdana-pro", sans-serif;
+    /* Ensure font matches your import */
     background-color: var(--bg-light);
     min-height: 100vh;
     display: flex;
@@ -25,17 +27,13 @@ body {
 /* --- HEADER SECTION --- */
 .entryHeader {
     height: 80px;
-    padding: 0 40px; /* More horizontal spacing */
+    padding: 0 40px;
+    /* More horizontal spacing */
     background-color: white;
     border-bottom: 1px solid #e5e7eb;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
-    /* Keeps header stuck to top while scrolling */
-    /* position: sticky;
-    top: 0;
-    z-index: 100; */
 }
 
 /* Group for Left side of header*/
@@ -48,7 +46,8 @@ body {
 .back-btn {
     width: 40px;
     height: 40px;
-    border-radius: 50%; /* Circle shape */
+    border-radius: 50%;
+    /* Circle shape */
     border: 2px solid var(--grad-start);
     background-color: transparent;
     color: var(--grad-start);
@@ -70,7 +69,8 @@ body {
 /* Same hover effect as the Create Entry button */
 .back-btn:hover {
     background: var(--main-gradient);
-    background-origin: border-box; /* The specific fix you requested */
+    background-origin: border-box;
+    /* The specific fix you requested */
     border-color: transparent;
     color: white;
     box-shadow: 0 4px 12px rgba(255, 94, 98, 0.3);
@@ -80,8 +80,10 @@ body {
 .profilePic-Box {
     height: 40px;
     width: 40px;
-    border-radius: 50%; /* Make it a circle */
-    overflow: hidden; /* Clips the image to the circle */
+    border-radius: 50%;
+    /* Make it a circle */
+    overflow: hidden;
+    /* Clips the image to the circle */
     border: 2px solid #e5e7eb;
     display: flex;
     align-items: center;
@@ -91,15 +93,19 @@ body {
 .profilePic-Box img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ensures image covers circle without stretching */
+    object-fit: cover;
+    /* Ensures image covers circle without stretching */
 }
 
 /* --- MAIN LAYOUT --- */
 .entryView {
     width: 100%;
-    max-width: 1200px; /* Prevents content from stretching too wide on huge screens */
-    margin: 0 auto; /* Centers the main container */
-    padding: 40px; /* Space around the content */
+    max-width: 1200px;
+    /* Prevents content from stretching too wide on huge screens */
+    margin: 0 auto;
+    /* Centers the main container */
+    padding: 40px;
+    /* Space around the content */
     flex: 1;
 }
 
@@ -115,7 +121,8 @@ body {
     display: flex;
     align-items: center;
     width: 100%;
-    border-bottom: 1px solid #e5e7eb; /* Subtle separator */
+    border-bottom: 1px solid #d1d5db;
+    /* Darker separator for better contrast */
     padding-bottom: 20px;
 }
 
@@ -127,9 +134,7 @@ body {
 }
 
 .recentJournal-btn {
-    /* Pushes button to the far right */
-    margin-left: auto; 
-    
+    margin-left: auto;
     background-color: white;
     border: 2px solid var(--grad-start);
     color: var(--grad-start);
@@ -140,12 +145,13 @@ body {
     cursor: pointer;
     transition: all 0.2s ease;
     text-transform: uppercase;
+    text-decoration: none;
     letter-spacing: 0.5px;
 }
 
 .recentJournal-btn:hover {
     background: var(--main-gradient);
-    background-origin: border-box; 
+    background-origin: border-box;
     border-color: transparent;
     color: white;
     box-shadow: 0 4px 12px rgba(255, 94, 98, 0.3);
@@ -155,7 +161,6 @@ body {
 /* Grid for Journal Squares */
 .recentJournal-section.bottom {
     display: grid;
-    /* CHANGED: Reduced min-width from 280px to 220px so 3 fit on smaller screens */
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 24px;
     width: 100%;
@@ -163,23 +168,79 @@ body {
 
 /* Individual Journal Card Styling */
 .square {
-    aspect-ratio: 1 / 1; /* Forces a perfect square */
+    aspect-ratio: 1 / 1;
     background-color: white;
     border-radius: 16px;
     border: 1px solid #e5e7eb;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    
-    /* Centering placeholder text */
+    padding: 20px;
+
+    /* The Layout inside each square */
     display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #d1d5db;
-    font-weight: 500;
+    flex-direction: column;
+    justify-content: space-between;
+    /* Pushes content to top and bottom */
+
+    text-decoration: none;
+    /* Removes underline from the link */
+    color: #374151;
+    /* Darker text for readability */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .square:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
     border-color: var(--grad-end);
+}
+
+.journal-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #111827;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.journal-dates {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.updated {
+    font-size: 0.85rem;
+    color: #6b7280;
+    /* Muted gray */
+}
+
+.created {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    /* Light gray */
+    margin-top: auto;
+}
+
+/* --- NO JOURNALS PLACEHOLDER --- */
+.no-journals-message {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 24px;
+    background-image: linear-gradient(white, white), var(--main-gradient);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-light);
+    font-weight: 600;
+    text-align: center;
+    min-height: 140px;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
