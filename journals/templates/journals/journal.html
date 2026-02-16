@@ -1,40 +1,43 @@
-{% load static %}<!doctype html>
+{% load static %}
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'journals/css/Journal.css' %}" />
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="{% static 'journals/images/Jabbel_Icon.ico' %}"
-    />
-    <link rel="stylesheet" href="https://use.typekit.net/mwa1ymd.css" />
-    <title>{{ journal.title }}</title>
-  </head>
-</html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{% static 'journals/css/journal.css' %}" />
+  <link rel="icon" type="image/x-icon" href="{% static 'journals/images/Jabbel_Icon.ico' %}" />
+  <link rel="stylesheet" href="https://use.typekit.net/mwa1ymd.css" />
+  <title>{{ journal.title }}</title>
+</head>
+
+
 <body>
   <header class="entryHeader">
     <!-- Grouped Back Button and Title -->
     <div class="header-left">
-      <a
-        href="{% url 'journals:listJournals' %}"
-        class="back-btn"
-        aria-label="Go back"
-      >
-        <svg
-          viewBox="0 0 24 24"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke="currentColor"
-        >
+      <a href="{% url 'journals:listJournals' %}" class="back-btn" aria-label="Go back">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor">
           <line x1="19" y1="12" x2="5" y2="12"></line>
           <polyline points="12 19 5 12 12 5"></polyline>
         </svg>
       </a>
+      <div class="journal-header">
+        <h1>Journal Entry 1</h1>
+        <h1>{{ journal.title }}</h1>
+      </div>
     </div>
-    <div class="profilePic-Box">
-      <!-- Using a placeholder image  -->
+    <div class="iconPic-Box">
+
     </div>
   </header>
+  <main>
+    <div class="wrapper">
+      <div class="journal-content">
+        <p>{{ journal.content|safe }}</p>
+      </div>
+    </div>
+  </main>
 </body>
+
+</html>
