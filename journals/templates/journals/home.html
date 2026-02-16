@@ -1,5 +1,6 @@
 {% extends 'base.html' %} {% load static %} {% block extra_css %}
 <link rel="stylesheet" href="{% static 'journals/css/home.css' %}" />
+<link rel="stylesheet" href="{% static 'journals/css/listJournals.css' %}" />
 {% endblock %} {% block content %}
 <!-- DISPLAY SLOGAN -->
 <div class="homeView">
@@ -13,16 +14,38 @@
   </div>
 </div>
 
-<!-- DISPLAY TOP 3 RECENT JOURNALS -->
+{% if user.is_authenticated %}
 <section class="recentJournal">
   <div class="recentJournal-section left">
     <p class="section-title">Top 3 Recent Journals</p>
-    <button class="recentJournal-btn">Create Entry</button>
+    <a
+      href="{% url 'journals:listJournals' %}"
+      class="recentJournal-btn"
+      style="text-decoration: none"
+      >View All</a
+    >
   </div>
+
   <div class="recentJournal-section bottom">
-    <div class="square">Entry 1</div>
-    <div class="square">Entry 2</div>
-    <div class="square">Entry 3</div>
+    {% for journal in journals %}
+    <a href="{% url 'journals:openJournal' journal.id %}" class="square">
+      <div class="journal-title">{{ journal.title }}</div>
+      <!-- TODO:add this icon for deleting https://www.svgrepo.com/svg/380116/trash-delete-bin-->
+
+      <div class="journal-dates">
+        <span class="updated"
+          >Updated: {{ journal.date_updated|date:"d, M, Y" }}</span
+        >
+        <span class="created"
+          >Created:{{ journal.date_created|date:"d M, Y" }}</span
+        >
+      </div>
+    </a>
+    {% empty %}
+    <div class="no-journals-message">
+      <p>No journals found.</p>
+    </div>
+    {% endfor %}
   </div>
 </section>
-{% endblock %}
+{% endif %} {% endblock %}
