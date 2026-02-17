@@ -144,6 +144,10 @@ main {
     color: #333;
     min-height: 300px;
     outline: none;
+    display: flex;
+    flex-direction: column;
+    cursor: text;
+    flex-grow: 1; 
 }
 
 #journal-content:focus {
