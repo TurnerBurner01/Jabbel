@@ -75,8 +75,6 @@
           <a href="{% url 'journals:openJournal' journal.id %}" class="square">
             <div class="journal-title">{{ journal.title }}</div>
 
-            <!-- TODO:add this icon for deleting https://www.svgrepo.com/svg/380116/trash-delete-bin-->
-
             <div class="journal-footer">
               <div class="journal-dates">
                 <span class="updated"
@@ -86,6 +84,7 @@
                   >Created:{{ journal.date_created|date:"d M, Y" }}</span
                 >
               </div>
+              <!-- https://www.svgrepo.com/svg/380116/trash-delete-bin-->
               <button class="icon-box">
                 <svg
                   viewBox="0 0 24 24"
