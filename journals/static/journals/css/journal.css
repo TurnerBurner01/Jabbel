@@ -153,3 +153,26 @@ main {
 #journal-content:focus-visible {
     outline: none;
 }
+
+.save-btn {
+    display: inline-block;
+    text-decoration: none !important;
+    background-color: transparent;
+    border: 2px solid #ff5e62; 
+    color: #ff5e62;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.save-btn:hover {
+    background: var(--main-gradient);
+    background-origin: border-box;
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 4px 12px rgba(255, 94, 98, 0.3);
+    transform: translateY(-2px);
+}
