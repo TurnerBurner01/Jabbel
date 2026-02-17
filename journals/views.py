@@ -20,7 +20,14 @@ from .models import Journal
 
 # Home page view
 def home(request):
-    return render(request, 'journals/home.html')
+    context = {}
+    # This is for getting the top 3 journals on the home page
+    if request.user.is_authenticated:
+        # Get top 3 most recent journals
+        journals = request.user.journals.all().order_by('-date_updated')[:3]
+        context['journals'] = journals
+        
+    return render(request, 'journals/home.html', context)
 
 
 
@@ -32,10 +39,7 @@ def createJournal(request):
 
         # Save the new journal entry to the database
         journal = request.user.journals.create(title=title, content={})
-        return redirect('journals:openJournal', journal_id=journal.id)      # Redirect to the newly created journal
-    else:
-        return render(request, 'journals/journal.html')
-        #return render(request, 'journals/createJournal.html')
+        return redirect('journals:openJournal', journal_id=journal.id)      # Redirect to the newly created journals
     
 
 
@@ -64,7 +68,9 @@ def openJournal(request, journal_id):
 @login_required
 def deleteJournal(request, journal_id):
     if request.method == 'POST':
-        pass
+        journal = get_object_or_404(request.user.journals, id=journal_id)
+        journal.delete()
+        return redirect('journals:listJournals')
 
 
 
