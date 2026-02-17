@@ -120,7 +120,9 @@
       <div class="wrapper">
         <div class="journal-content">
           <p id="journal-content" contenteditable="true">
-            {{ journal.content|safe }}
+            <!-- Prevents the word none being returned when the journal content is empty 
+                 and the safe tells django that the content is safe to render as html to keep formatting-->
+            {% if journal.content %}{{ journal.content|safe }}{% endif %}
           </p>
         </div>
       </div>
