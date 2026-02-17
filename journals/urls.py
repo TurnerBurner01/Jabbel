@@ -10,4 +10,5 @@ urlpatterns = [
     path('listJournals/', views.listJournals, name='listJournals'),
     path('createJournal/', views.createJournal, name='createJournal'),
     path('journal/<int:journal_id>/', views.openJournal, name='openJournal'),
+    path('deleteJournal/<int:journal_id>/', views.deleteJournal, name='deleteJournal'),
 ]
