@@ -136,3 +136,20 @@ main {
     gap: 16px;
 
 }
+
+.journal-content {
+    padding: 20px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+    min-height: 300px;
+    outline: none;
+}
+
+#journal-content:focus {
+    outline: none;
+}
+
+#journal-content:focus-visible {
+    outline: none;
+}

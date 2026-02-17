@@ -119,7 +119,9 @@
     <main>
       <div class="wrapper">
         <div class="journal-content">
-          <p>{{ journal.content|safe }}</p>
+          <p id="journal-content" contenteditable="true">
+            {{ journal.content|safe }}
+          </p>
         </div>
       </div>
     </main>
