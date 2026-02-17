@@ -39,10 +39,7 @@ def createJournal(request):
 
         # Save the new journal entry to the database
         journal = request.user.journals.create(title=title, content={})
-        return redirect('journals:openJournal', journal_id=journal.id)      # Redirect to the newly created journal
-    else:
-        return render(request, 'journals/journal.html')
-        #return render(request, 'journals/createJournal.html')
+        return redirect('journals:openJournal', journal_id=journal.id)      # Redirect to the newly created journals
     
 
 
@@ -62,7 +59,6 @@ def openJournal(request, journal_id):
 
     # The GET request will load the journal content into the editor for viewing/editing
     else:
-        # TODO: Change render to createForm.html
         return render(request, 'journals/journal.html', {'journal': journal})
     
 
@@ -72,7 +68,9 @@ def openJournal(request, journal_id):
 @login_required
 def deleteJournal(request, journal_id):
     if request.method == 'POST':
-        pass
+        journal = get_object_or_404(request.user.journals, id=journal_id)
+        journal.delete()
+        return redirect('journals:listJournals')
 
 
 
