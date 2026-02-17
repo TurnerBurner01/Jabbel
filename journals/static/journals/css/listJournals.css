@@ -244,3 +244,41 @@ body {
     min-height: 140px;
     transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
+
+.icon-box {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--grad-start);
+    background-color: transparent;
+    color: var(--grad-start);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.icon-box svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    fill: none;
+}
+
+.icon-box:hover {
+    background: var(--main-gradient);
+    background-origin: border-box;
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 4px 12px rgba(255, 94, 98, 0.3);
+    transform: translateY(-2px);
+}
+
+.journal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+}
