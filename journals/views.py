@@ -38,7 +38,7 @@ def createJournal(request):
         title = request.POST.get('title', 'Untitled Entry')                 # Default title if none provided
 
         # Save the new journal entry to the database
-        journal = request.user.journals.create(title=title, content={})
+        journal = request.user.journals.create(title=title, content="")
         return redirect('journals:openJournal', journal_id=journal.id)      # Redirect to the newly created journals
     
 
