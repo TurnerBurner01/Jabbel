@@ -3,7 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Data Files 
+# ML Data Files 
 data/
 
 # C extensions
