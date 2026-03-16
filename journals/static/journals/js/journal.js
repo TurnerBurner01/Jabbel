@@ -60,6 +60,14 @@ document.addEventListener('DOMContentLoaded', () => {
             // Get current text from journal div
             const content = journalContent.innerText;
 
+            // Get the speech bubble elements
+            const bubble = document.getElementById('ai-bubble');
+            const textTarget = document.getElementById('bubble-text');
+
+            // Show "Thinking" state
+            textTarget.innerText = "Thinking...";
+            bubble.classList.add('show');
+
             // Get CSRF token
             const csrfToken = getCookie('csrftoken');
             const aiUrl = this.getAttribute('data-url');
@@ -83,17 +91,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // TODO: Need to do something with the response
                 if (data.response) {
-                    alert(data.response); 
-                    console.log(data.response);
+                   textTarget.innerText = data.response; 
+                   console.log(data.response);
                 }
             })
             .catch(error => {
+                textTarget.innerText = "I'm having a little trouble thinking right now. Try again?";
                 console.error('Error:', error);
                 
                 // Re-enable button
                 this.style.opacity = "1";
                 this.style.pointerEvents = "auto";
             });
+        });
+
+        // Close bubble if user clicks anywhere else
+        document.addEventListener('click', function(event) {
+            const container = document.querySelector('.ai-container');
+            if (container && !container.contains(event.target)) {
+                const bubble = document.getElementById('ai-bubble');
+                if (bubble) bubble.classList.remove('show');
+            }
         });
     }
 
