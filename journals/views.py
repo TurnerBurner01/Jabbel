@@ -17,6 +17,8 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Journal
+from groq import Groq
+import os 
 
 # Home page view
 def home(request):
@@ -87,3 +89,51 @@ def listJournals(request):
     
     else:
         return render(request, 'journals/listJournals.html')
+
+
+# AI Suggestion: This will be called to get AI suggestions for the current journal entry
+@login_required
+def aiSuggestion(request):
+
+    PROMPT = """
+                You are a simple journal assistant for seniors. 
+                Provide exactly ONE grounded, everyday writing suggestion under 25 words. 
+                No 'chatter' or intro phrases.
+
+                STRICT RULES:
+                1. Stay 'normal': Ask about concrete things like meals, the weather, a recent phone call, or a household task.
+                2. Avoid abstract questions: Never ask about 'evoking feelings', 'soul', or 'inner peace'.
+                3. If the journal is empty: Ask a simple question about their day.
+                4. If they have written: Ask one basic, factual follow-up question about a detail they mentioned.
+            """
+
+    if request.method == 'POST':
+        input = request.POST.get('topic', 'Something intresting')
+
+        client = Groq(
+            api_key = os.getenv('GROQ_API_KEY')
+            )  
+        try: 
+            chat_completion = client.chat.completions.create(
+                model="llama-3.1-8b-instant",
+                messages=[
+                    {
+                        "role": "system",
+                        "content": PROMPT
+                    },
+                    {
+                        "role": "user",
+                        "content": input
+                    }
+            ]
+        )
+
+        except Exception as e:
+            print(e)
+            return JsonResponse({'response': 'Error: Could not get AI suggestion'})
+
+        print(chat_completion.choices[0].message.content)
+        return JsonResponse({'response': chat_completion.choices[0].message.content})
+    
+    else:
+        return JsonResponse({'response': 'Error: Invalid request method'})

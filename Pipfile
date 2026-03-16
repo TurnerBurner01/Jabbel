@@ -8,8 +8,14 @@ django = "*"
 psycopg2 = "*"
 python-dotenv = "*"
 pillow = "*"
+torch = "*"
+torchaudio = "*"
+pandas = "*"
+ipykernel = "*"
+groq = "*"
 
 [dev-packages]
+ipykernel = "*"
 
 [requires]
 python_version = "3.13"

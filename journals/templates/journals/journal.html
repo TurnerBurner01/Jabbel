@@ -39,29 +39,43 @@
         </div>
       </div>
       <div class="header-right">
-        <!-- AI Assistant Icon https://icons.getbootstrap.com/icons/robot/-->
-        <button class="icon-Box" aria-label="AI Assistant">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-robot"
-            viewBox="0 0 16 16"
-            aria-labelledby="titleID descID"
+        <div class="ai-container" style="position: relative">
+          <!-- AI Assistant Icon https://icons.getbootstrap.com/icons/robot/-->
+          <button
+            type="button"
+            class="icon-Box"
+            aria-label="AI Assistant"
+            style="text-decoration: none"
+            id="ai-button"
+            data-url="{% url 'journals:aiSuggestion' %}"
           >
-            <title id="titleID">AI Assistant</title>
-            <desc id="descID">Help Give Prompts To Write About</desc>
-            <path
-              d="M6 12.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5M3 8.062C3 6.76 4.235 5.765 5.53 5.886a26.6 26.6 0 0 0 4.94 0C11.765 5.765 13 6.76 13 8.062v1.157a.93.93 0 0 1-.765.935c-.845.147-2.34.346-4.235.346s-3.39-.2-4.235-.346A.93.93 0 0 1 3 9.219zm4.542-.827a.25.25 0 0 0-.217.068l-.92.9a25 25 0 0 1-1.871-.183.25.25 0 0 0-.068.495c.55.076 1.232.149 2.02.193a.25.25 0 0 0 .189-.071l.754-.736.847 1.71a.25.25 0 0 0 .404.062l.932-.97a25 25 0 0 0 1.922-.188.25.25 0 0 0-.068-.495c-.538.074-1.207.145-1.98.189a.25.25 0 0 0-.166.076l-.754.785-.842-1.7a.25.25 0 0 0-.182-.135"
-            />
-            <path
-              d="M8.5 1.866a1 1 0 1 0-1 0V3h-2A4.5 4.5 0 0 0 1 7.5V8a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1v-.5A4.5 4.5 0 0 0 10.5 3h-2zM14 7.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7.5A3.5 3.5 0 0 1 5.5 4h5A3.5 3.5 0 0 1 14 7.5"
-            />
-          </svg>
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-robot"
+              viewBox="0 0 16 16"
+              aria-labelledby="titleID descID"
+            >
+              <title id="titleID">AI Assistant</title>
+              <desc id="descID">Help Give Prompts To Write About</desc>
+              <path
+                d="M6 12.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5M3 8.062C3 6.76 4.235 5.765 5.53 5.886a26.6 26.6 0 0 0 4.94 0C11.765 5.765 13 6.76 13 8.062v1.157a.93.93 0 0 1-.765.935c-.845.147-2.34.346-4.235.346s-3.39-.2-4.235-.346A.93.93 0 0 1 3 9.219zm4.542-.827a.25.25 0 0 0-.217.068l-.92.9a25 25 0 0 1-1.871-.183.25.25 0 0 0-.068.495c.55.076 1.232.149 2.02.193a.25.25 0 0 0 .189-.071l.754-.736.847 1.71a.25.25 0 0 0 .404.062l.932-.97a25 25 0 0 0 1.922-.188.25.25 0 0 0-.068-.495c-.538.074-1.207.145-1.98.189a.25.25 0 0 0-.166.076l-.754.785-.842-1.7a.25.25 0 0 0-.182-.135"
+              />
+              <path
+                d="M8.5 1.866a1 1 0 1 0-1 0V3h-2A4.5 4.5 0 0 0 1 7.5V8a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1v-.5A4.5 4.5 0 0 0 10.5 3h-2zM14 7.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7.5A3.5 3.5 0 0 1 5.5 4h5A3.5 3.5 0 0 1 14 7.5"
+              />
+            </svg>
+          </button>
 
-        <button class="icon-Box" aria-label="Voice to Text">
+          <div id="ai-bubble" class="speech-bubble" style="display: none">
+            <div id="bubble-text">Thinking...</div>
+            <div class="bubble-arrow"></div>
+          </div>
+        </div>
+
+        <button type="button" class="icon-Box" aria-label="Voice to Text">
           <!-- Microphone Icon https://www.svgrepo.com/svg/438679/microphone -->
           <svg
             fill="currentColor"
@@ -119,12 +133,14 @@
     </header>
     <main>
       <div class="wrapper">
-        <div class="journal-content">
-          <p id="journal-content" contenteditable="true">
-            <!-- Prevents the word none being returned when the journal content is empty 
+        <div
+          class="journal-content"
+          id="journal-content"
+          contenteditable="true"
+        >
+          <!-- Prevents the word none being returned when the journal content is empty 
                  and the safe tells django that the content is safe to render as html to keep formatting-->
-            {% if journal.content %}{{ journal.content|safe }}{% endif %}
-          </p>
+          {% if journal.content %}{{ journal.content|safe }}{% endif %}
         </div>
       </div>
     </main>

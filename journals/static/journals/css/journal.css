@@ -123,6 +123,45 @@ main {
     transform: translateY(-2px);
 }
 
+.speech-bubble {
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffffff;
+    border: 2px solid #1C274C;
+    border-radius: 15px;
+    padding: 12px 16px;
+    width: 220px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #333;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    z-index: 100;
+}
+
+.bubble-arrow {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #1C274C;
+}
+
+.speech-bubble.show {
+    display: block !important;
+    animation: popIn 0.3s ease-out;
+}
+
+@keyframes popIn {
+    from { opacity: 0; transform: translateX(-50%) scale(0.9); }
+    to { opacity: 1; transform: translateX(-50%) scale(1); }
+}
+
 .wrapper {
     width: 80%;
     flex: 1;
@@ -144,6 +183,10 @@ main {
     color: #333;
     min-height: 300px;
     outline: none;
+    display: flex;
+    flex-direction: column;
+    cursor: text;
+    flex-grow: 1; 
 }
 
 #journal-content:focus {
