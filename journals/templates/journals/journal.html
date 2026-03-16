@@ -40,8 +40,8 @@
       </div>
       <div class="header-right">
         <!-- AI Assistant Icon https://icons.getbootstrap.com/icons/robot/-->
-        <a
-          href="{% url 'journals:aiSuggestion' %}"
+        <button
+          type="button"
           class="icon-Box"
           aria-label="AI Assistant"
           style="text-decoration: none"
@@ -64,9 +64,9 @@
               d="M8.5 1.866a1 1 0 1 0-1 0V3h-2A4.5 4.5 0 0 0 1 7.5V8a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1v-.5A4.5 4.5 0 0 0 10.5 3h-2zM14 7.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7.5A3.5 3.5 0 0 1 5.5 4h5A3.5 3.5 0 0 1 14 7.5"
             />
           </svg>
-        </a>
+        </button>
 
-        <a class="icon-Box" aria-label="Voice to Text">
+        <button type="button" class="icon-Box" aria-label="Voice to Text">
           <!-- Microphone Icon https://www.svgrepo.com/svg/438679/microphone -->
           <svg
             fill="currentColor"
@@ -91,8 +91,8 @@
               ></path>
             </g>
           </svg>
-        </a>
-        <a class="icon-Box" aria-label="Settings">
+        </button>
+        <button class="icon-Box" aria-label="Settings">
           <!-- Settings Icon https://www.svgrepo.com/svg/526221/settings -->
           <svg
             viewBox="0.5 0 24.00 24.00"
@@ -119,7 +119,7 @@
               ></path>
             </g>
           </svg>
-        </a>
+        </button>
       </div>
     </header>
     <main>
