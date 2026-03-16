@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Gather the save button and journal content elements
     const saveBtn = document.querySelector('.save-btn');
     const journalContent = document.getElementById('journal-content');
+    const aiButton = document.getElementById('ai-button');
 
     // Add event listener to save button
     if (saveBtn) {
@@ -44,6 +45,54 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(error => {
                 console.error('Error:', error);
                 alert('An error occurred while saving.');
+            });
+        });
+    }
+
+    if (aiButton) {
+        aiButton.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            this.style.opacity = "0.5";
+            this.style.pointerEvents = "none"; // Disable clicks while loading
+            console.log("Fetching AI suggestion...");
+            
+            // Get current text from journal div
+            const content = journalContent.innerText;
+
+            // Get CSRF token
+            const csrfToken = getCookie('csrftoken');
+            const aiUrl = this.getAttribute('data-url');
+
+            // Send the POST request
+            fetch(aiUrl, {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": csrfToken,
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: new URLSearchParams({
+                    'topic': content
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Re-enable button
+                this.style.opacity = "1";
+                this.style.pointerEvents = "auto";
+                
+                // TODO: Need to do something with the response
+                if (data.response) {
+                    alert(data.response); 
+                    console.log(data.response);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                
+                // Re-enable button
+                this.style.opacity = "1";
+                this.style.pointerEvents = "auto";
             });
         });
     }

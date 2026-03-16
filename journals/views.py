@@ -107,7 +107,10 @@ def aiSuggestion(request):
                 messages=[
                     {
                         "role": "system",
-                    "content": "You are a helpful assistant for someone who is writing a journal entry. Give a response that is less than 30 words"
+                    "content": '''
+                    You are a helpful assistant for someone who is writing a journal entry. 
+                    Do not ask the user if they want help, just give them a response
+                    '''
                 },
                 {
                     "role": "user",
