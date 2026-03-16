@@ -95,6 +95,18 @@ def listJournals(request):
 @login_required
 def aiSuggestion(request):
 
+    PROMPT = """
+                You are a simple journal assistant for seniors. 
+                Provide exactly ONE grounded, everyday writing suggestion under 25 words. 
+                No 'chatter' or intro phrases.
+
+                STRICT RULES:
+                1. Stay 'normal': Ask about concrete things like meals, the weather, a recent phone call, or a household task.
+                2. Avoid abstract questions: Never ask about 'evoking feelings', 'soul', or 'inner peace'.
+                3. If the journal is empty: Ask a simple question about their day.
+                4. If they have written: Ask one basic, factual follow-up question about a detail they mentioned.
+            """
+
     if request.method == 'POST':
         input = request.POST.get('topic', 'Something intresting')
 
@@ -107,15 +119,12 @@ def aiSuggestion(request):
                 messages=[
                     {
                         "role": "system",
-                    "content": '''
-                    You are a helpful assistant for someone who is writing a journal entry. 
-                    Do not ask the user if they want help, just give them a response
-                    '''
-                },
-                {
-                    "role": "user",
-                    "content": input
-                }
+                        "content": PROMPT
+                    },
+                    {
+                        "role": "user",
+                        "content": input
+                    }
             ]
         )
 
