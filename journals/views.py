@@ -95,7 +95,7 @@ def listJournals(request):
 @login_required
 def aiSuggestion(request):
 
-    if request.method == 'Post':
+    if request.method == 'POST':
         input = request.POST.get('topic', 'Something intresting')
 
         client = Groq(
