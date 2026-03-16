@@ -17,6 +17,8 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Journal
+from groq import Groq
+import os 
 
 # Home page view
 def home(request):
@@ -87,3 +89,39 @@ def listJournals(request):
     
     else:
         return render(request, 'journals/listJournals.html')
+
+
+# AI Suggestion: This will be called to get AI suggestions for the current journal entry
+@login_required
+def aiSuggestion(request):
+
+    if request.method == 'Post':
+        input = request.POST.get('topic', 'Something intresting')
+
+        client = Groq(
+            api_key = os.getenv('GROQ_API_KEY')
+            )  
+        try: 
+            chat_completion = client.chat.completions.create(
+                model="llama-3.1-8b-instant",
+                messages=[
+                    {
+                        "role": "system",
+                    "content": "You are a helpful assistant for someone who is writing a journal entry. Give a response that is less than 30 words"
+                },
+                {
+                    "role": "user",
+                    "content": input
+                }
+            ]
+        )
+
+        except Exception as e:
+            print(e)
+            return JsonResponse({'response': 'Error: Could not get AI suggestion'})
+
+        print(chat_completion.choices[0].message.content)
+        return JsonResponse({'response': chat_completion.choices[0].message.content})
+    
+    else:
+        return JsonResponse({'response': 'Error: Invalid request method'})
