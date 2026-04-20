@@ -18,5 +18,9 @@ class Journal(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)  # Timestamp when journal is created
     date_updated = models.DateTimeField(auto_now=True)      # Timestamp when journal is last updated
 
+    # Audio file field
+    audio_file = models.FileField(upload_to='journal_audio/', blank=True, null=True)  # Saves to media/journal_audio/
+    transcription = models.TextField(blank=True, null=True) # Stores the transcribed text
+
     def __str__(self):
         return self.title
