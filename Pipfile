@@ -12,6 +12,7 @@ torch = "*"
 torchaudio = "*"
 pandas = "*"
 ipykernel = "*"
+ffmpeg = "*"
 groq = "*"
 
 [dev-packages]

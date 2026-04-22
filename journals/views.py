@@ -12,11 +12,16 @@ Data Pipeline for Journal entries:
 2. Passes that new journal.id to openJournal() to open it for editing
 '''
 
+import os
 import json
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
+from django.core.files.storage import FileSystemStorage
+from django.conf import settings
 from .models import Journal
+from .utils import get_transcription
 from groq import Groq
 import os 
 
@@ -90,6 +95,39 @@ def listJournals(request):
     else:
         return render(request, 'journals/listJournals.html')
 
+@login_required
+@csrf_exempt
+def transcribe_audio(request):
+    if request.method == 'POST' and request.FILES.get('audio'):
+        audio_file = request.FILES['audio']
+        
+        try:
+            # Safely create media/temp_audio directory in the project root
+            temp_dir = os.path.join(settings.BASE_DIR, 'media', 'temp_audio')
+            if not os.path.exists(temp_dir):
+                os.makedirs(temp_dir)
+                
+            fs = FileSystemStorage(location=temp_dir)
+            filename = fs.save(audio_file.name, audio_file)
+            file_path = fs.path(filename)
+            
+            # Pass the file path to your PyTorch model via the helper in utils.py
+            transcribed_text = get_transcription(file_path)
+            
+            # Clean up the temporary file
+            if os.path.exists(file_path):
+                os.remove(file_path)
+                
+            return JsonResponse({'status': 'success', 'text': transcribed_text})
+            
+        except Exception as e:
+            print(f"Transcription Error: {e}")
+            # Clean up the temporary file if it failed along the line
+            if 'file_path' in locals() and os.path.exists(file_path):
+                os.remove(file_path)
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+            
+    return JsonResponse({'status': 'error', 'message': 'Invalid request or missing audio file'}, status=400)
 
 # AI Suggestion: This will be called to get AI suggestions for the current journal entry
 @login_required

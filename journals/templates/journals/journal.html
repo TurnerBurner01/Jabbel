@@ -101,6 +101,11 @@
             </g>
           </svg>
         </button>
+        <span
+          id="recordingStatus"
+          style="color: red; display: none; font-size: 0.9em"
+          >Recording...</span
+        >
         <button class="icon-Box" aria-label="Settings">
           <!-- Settings Icon https://www.svgrepo.com/svg/526221/settings -->
           <svg
@@ -132,6 +137,7 @@
       </div>
     </header>
     <main>
+      {% csrf_token %}
       <div class="wrapper">
         <div
           class="journal-content"
