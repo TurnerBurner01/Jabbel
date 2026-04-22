@@ -37,33 +37,63 @@ def calculate_attention(values, keys, query):
     scores = F.softmax(scores, dim=-1)
     return torch.matmul(scores, values), scores
 
+# --- TRANSFORMER SUB-MODULES (Fixed to match state_dict) ---
+
+class PositionalEncoding(nn.Module):
+    def __init__(self, max_seq_length, embed_size):
+        super().__init__()
+        self.positional_embedding = nn.Parameter(torch.zeros(max_seq_length, embed_size))
+
+    def forward(self, x):
+        return x + self.positional_embedding[:x.size(1), :]
+
+class AttentionLayer(nn.Module):
+    def __init__(self, embed_size):
+        super().__init__()
+        self.query_dense = nn.Linear(embed_size, embed_size)
+        self.key_dense = nn.Linear(embed_size, embed_size)
+        self.value_dense = nn.Linear(embed_size, embed_size)
+
+    def forward(self, x):
+        q, k, v = self.query_dense(x), self.key_dense(x), self.value_dense(x)
+        attn, _ = calculate_attention(v, k, q)
+        return attn
+
+class FeedForward(nn.Module):
+    def __init__(self, embed_size):
+        super().__init__()
+        self.layer1 = nn.Linear(embed_size, embed_size)
+        self.gelu = nn.GELU()
+        self.layer2 = nn.Linear(embed_size, embed_size)
+
+    def forward(self, x):
+        return self.layer2(self.gelu(self.layer1(x)))
+
 class TransformerBlock(nn.Module):
     def __init__(self, embed_size):
         super().__init__()
-        self.ln1, self.ln2 = nn.LayerNorm(embed_size), nn.LayerNorm(embed_size)
-        self.q_dense, self.k_dense, self.v_dense = [nn.Linear(embed_size, embed_size) for _ in range(3)]
-        self.ff = nn.Sequential(nn.Linear(embed_size, embed_size), nn.GELU(), nn.Linear(embed_size, embed_size))
+        self.layer_norm1 = nn.LayerNorm(embed_size)
+        self.attention_layer = AttentionLayer(embed_size)
+        self.layer_norm2 = nn.LayerNorm(embed_size)
+        self.feed_forward = FeedForward(embed_size)
 
     def forward(self, x):
-        q, k, v = self.q_dense(self.ln1(x)), self.k_dense(self.ln1(x)), self.v_dense(self.ln1(x))
-        attn, _ = calculate_attention(v, k, q)
-        x = x + attn
-        return x + self.ff(self.ln2(x))
+        x = x + self.attention_layer(self.layer_norm1(x))
+        x = x + self.feed_forward(self.layer_norm2(x))
+        return x
 
 class Transformer(nn.Module):
     def __init__(self, embed_size, num_layers, max_seq_length):
         super().__init__()
-        pe = torch.zeros(max_seq_length, embed_size)
-        pos = torch.arange(max_seq_length).unsqueeze(1)
-        div = torch.exp(torch.arange(0, embed_size, 2) * (-math.log(10000.0) / embed_size))
-        pe[:, 0::2], pe[:, 1::2] = torch.sin(pos * div), torch.cos(pos * div)
-        self.register_buffer("pe", pe)
-        self.blocks = nn.ModuleList([TransformerBlock(embed_size) for _ in range(num_layers)])
+        self.positional_encoding = PositionalEncoding(max_seq_length, embed_size)
+        self.transformer_blocks = nn.ModuleList([TransformerBlock(embed_size) for _ in range(num_layers)])
 
     def forward(self, x):
-        x = x + self.pe[:x.size(1), :]
-        for b in self.blocks: x = b(x)
+        x = self.positional_encoding(x)
+        for b in self.transformer_blocks: x = b(x)
         return x
+
+# --- QUANTIZATION CLASSES ---
 
 class VectorQuantizer(nn.Module):
     def __init__(self, num_embeddings, embedding_dim, commitment_cost=0.25):

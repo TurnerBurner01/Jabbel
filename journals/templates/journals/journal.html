@@ -61,7 +61,7 @@
           </svg>
         </button>
 
-        <button class="icon-Box" aria-label="Voice to Text">
+        <button id="recordBtn" class="icon-Box" aria-label="Voice to Text">
           <!-- Microphone Icon https://www.svgrepo.com/svg/438679/microphone -->
           <svg
             fill="currentColor"
@@ -87,6 +87,11 @@
             </g>
           </svg>
         </button>
+        <span
+          id="recordingStatus"
+          style="color: red; display: none; font-size: 0.9em"
+          >Recording...</span
+        >
         <button class="icon-Box" aria-label="Settings">
           <!-- Settings Icon https://www.svgrepo.com/svg/526221/settings -->
           <svg
@@ -118,6 +123,7 @@
       </div>
     </header>
     <main>
+      {% csrf_token %}
       <div class="wrapper">
         <div
           class="journal-content"

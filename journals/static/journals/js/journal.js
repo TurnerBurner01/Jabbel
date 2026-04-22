@@ -68,3 +68,105 @@ document.addEventListener('DOMContentLoaded', () => {
         return cookieValue;
     }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const recordBtn = document.getElementById("recordBtn");
+    const statusText = document.getElementById("recordingStatus");
+    const textArea = document.getElementById("journal-content"); 
+    
+    let mediaRecorder;
+    let audioChunks = [];
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    if (recordBtn) {
+        recordBtn.addEventListener("click", async () => {
+            // STOP RECORDING logic
+            if (mediaRecorder && mediaRecorder.state === "recording") {
+                mediaRecorder.stop();
+                
+                // Remove the recording effect
+                recordBtn.classList.remove("is-recording");
+                statusText.innerText = "Processing audio... please wait.";
+                return;
+            }
+
+            // START RECORDING logic
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                
+                mediaRecorder.ondataavailable = (event) => {
+                    audioChunks.push(event.data);
+                };
+
+                mediaRecorder.onstop = async () => {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    audioChunks = [];
+                    
+                    const formData = new FormData();
+                    formData.append('audio', audioBlob, 'recording.webm');
+
+                    try {
+                        const response = await fetch('/transcribe/', {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRFToken': getCookie('csrftoken')
+                            },
+                            body: formData
+                        });
+
+                        const rawText = await response.text();
+                        let data;
+                        try {
+                            data = JSON.parse(rawText);
+                        } catch (e) {
+                            alert("Backend is crashing. Here is the raw server response:\n" + rawText.substring(0, 300));
+                            console.error("Raw error response:", rawText);
+                            statusText.style.display = "none";
+                            return;
+                        }
+                        
+                        if (data.status === 'success') {
+                            // Add a space before appending if text area isn't empty
+                            const prefix = textArea.innerHTML.trim().length > 0 ? " " : "";
+                            textArea.innerHTML += prefix + data.text;
+                        } else {
+                            alert("Transcription Error: " + data.message);
+                        }
+                    } catch (error) {
+                        console.error("Error sending audio:", error);
+                        alert("Network error while trying to transcribe.");
+                    } finally {
+                        // Hide status text when finished processing
+                        statusText.style.display = "none"; 
+                    }
+                };
+
+                mediaRecorder.start();
+                
+                // Add the recording effect and show status
+                recordBtn.classList.add("is-recording");
+                statusText.innerText = "Recording...";
+                statusText.style.display = "inline";
+
+            } catch (err) {
+                console.error("Microphone access denied:", err);
+                alert("Please allow microphone access to use dictation.");
+            }
+        });
+    }
+});
