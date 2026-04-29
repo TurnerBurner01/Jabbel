@@ -23,7 +23,6 @@ from django.conf import settings
 from .models import Journal
 from .utils import get_transcription
 from groq import Groq
-import os 
 
 # Home page view
 def home(request):
@@ -71,7 +70,7 @@ def openJournal(request, journal_id):
 
 
 
-# Deletes a Journal entry: (not yet implemented)
+# Deletes a Journal entry
 @login_required
 def deleteJournal(request, journal_id):
     if request.method == 'POST':
@@ -111,7 +110,7 @@ def transcribe_audio(request):
             filename = fs.save(audio_file.name, audio_file)
             file_path = fs.path(filename)
             
-            # Pass the file path to your PyTorch model via the helper in utils.py
+            # Pass the file path to the PyTorch model via the helper in utils.py
             transcribed_text = get_transcription(file_path)
             
             # Clean up the temporary file
@@ -129,7 +128,7 @@ def transcribe_audio(request):
             
     return JsonResponse({'status': 'error', 'message': 'Invalid request or missing audio file'}, status=400)
 
-# AI Suggestion: This will be called to get AI suggestions for the current journal entry
+    # AI Suggestion: This will be called to get AI suggestions for the current journal entry
 @login_required
 def aiSuggestion(request):
 
